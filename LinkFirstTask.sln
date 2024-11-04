@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Api", "App.Api\App.Api.csproj", "{D0CD0BB3-C6D1-4760-8CF7-7A8532336F3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.DAL", "App.DAL\App.DAL.csproj", "{C491C015-07A7-48DF-B49F-513F7562006E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.BL", "App.BL\App.BL.csproj", "{2EB84D8B-2FCB-4A7A-BD10-0D3AAA9A34B6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D0CD0BB3-C6D1-4760-8CF7-7A8532336F3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0CD0BB3-C6D1-4760-8CF7-7A8532336F3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0CD0BB3-C6D1-4760-8CF7-7A8532336F3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0CD0BB3-C6D1-4760-8CF7-7A8532336F3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C491C015-07A7-48DF-B49F-513F7562006E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C491C015-07A7-48DF-B49F-513F7562006E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C491C015-07A7-48DF-B49F-513F7562006E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C491C015-07A7-48DF-B49F-513F7562006E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EB84D8B-2FCB-4A7A-BD10-0D3AAA9A34B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EB84D8B-2FCB-4A7A-BD10-0D3AAA9A34B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EB84D8B-2FCB-4A7A-BD10-0D3AAA9A34B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EB84D8B-2FCB-4A7A-BD10-0D3AAA9A34B6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {050A4411-C2DE-4FD5-BB80-A8260AD26D99}
+	EndGlobalSection
+EndGlobal
