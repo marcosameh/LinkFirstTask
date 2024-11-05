@@ -21,5 +21,14 @@ public class ApplicationContext : DbContext
             new OrderStatus { Id = 3, Name = "Shipped" },
             new OrderStatus { Id = 4, Name = "Delivered" }
         );
+
+        modelBuilder.Entity<Order>()
+    .Property(o => o.TotalPrice)
+    .HasColumnType("decimal(7,2)");
+
+        modelBuilder.Entity<Product>()
+            .Property(p => p.Price)
+            .HasColumnType("decimal(7,2)");
+
     }
 }

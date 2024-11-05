@@ -32,7 +32,7 @@ namespace App.BL.Services
                     return new ApiResponse<OrderDto>(false, _errors, null);
                 }
                 order.OrderDate = DateTime.Now;
-                order.StatusId = OrderStatusEnum.Submitted;
+                order.StatusId = (int)OrderStatusEnum.Submitted;
                 await orderRepository.CreateOrderAsync(order);
                 return new ApiResponse<OrderDto>(true, new List<string>(), orderDto);
             }
