@@ -28,6 +28,16 @@ public partial class ApplicationContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PK__Orders__3214EC073454C643");
 
+            entity.Property(e => e.CustomerAddress)
+                .IsRequired()
+                .HasMaxLength(200);
+            entity.Property(e => e.CustomerName)
+                .IsRequired()
+                .HasMaxLength(100);
+            entity.Property(e => e.CustomerPhone)
+                .IsRequired()
+                .HasMaxLength(11)
+                .IsFixedLength();
             entity.Property(e => e.OrderDate)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");

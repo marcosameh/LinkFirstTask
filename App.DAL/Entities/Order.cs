@@ -15,6 +15,12 @@ public partial class Order
 
     public decimal TotalPrice { get; set; }
 
+    public string CustomerName { get; set; }
+
+    public string CustomerPhone { get; set; }
+
+    public string CustomerAddress { get; set; }
+
     public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 
     public virtual OrderStatus Status { get; set; }
