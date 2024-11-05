@@ -5,8 +5,6 @@ using App.DAL.Context;
 using App.DAL.Entities;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace App.DAL.Repositories
 {
@@ -37,7 +35,11 @@ namespace App.DAL.Repositories
                 await _context.Orders.AddAsync(order);
                 await _context.SaveChangesAsync();
 
-                var responseDto = _mapper.Map<OrderDto>(order);
+                var savedOrder = await _context.Orders
+                                       .Include(o => o.OrderItems)
+                                       .FirstOrDefaultAsync(o => o.Id == order.Id);
+
+                var responseDto = _mapper.Map<OrderDto>(savedOrder);
                 return new ApiResponse<OrderDto>(true, new List<string>(), responseDto);
             }
             catch (Exception ex)
@@ -59,7 +61,7 @@ namespace App.DAL.Repositories
                 }
                 else
                 {
-                    _errors.Add($"Product Not Found: {item.ProductId}");
+                    _errors.Add($"Product ID: {item.ProductId} Not Found");
                 }
             }
 

@@ -1,6 +1,7 @@
 ﻿using App.BL.Common;
 using App.BL.DTOs;
 using App.BL.IRepository;
+using App.DAL.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App.Api.Controllers
@@ -17,7 +18,7 @@ namespace App.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ApiResponse<OrderDto>>> Create([FromBody] OrderDto orderDto)
+        public async Task<ActionResult<ApiResponse<Order>>> Create([FromBody] OrderDto orderDto)
         {
 
 

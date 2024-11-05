@@ -1,4 +1,3 @@
-using App.Api.Controllers;
 using App.BL.IRepository;
 using App.BL.Mapper;
 using App.DAL.Context;
@@ -15,7 +14,8 @@ builder.Services.Configure<ApiBehaviorOptions>(options
     => options.SuppressModelStateInvalidFilter = true);
 
 
-builder.Services.AddControllers(options => {
+builder.Services.AddControllers(options =>
+{
     options.Filters.Add<CustomValidationFilter>();
 });
 
@@ -25,7 +25,9 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ApplicationContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 var app = builder.Build();

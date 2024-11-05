@@ -13,9 +13,14 @@ namespace App.BL.Mapper
             {
                 ProductId = item.ProductId,
                 Quantity = item.Quantity
-            }))).ReverseMap();
-
-
+            })));
+            CreateMap<Order, OrderDto>()
+                .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src.OrderItems.Select(item => new OrderItemDto
+                {
+                    ProductId = item.ProductId,
+                    Quantity = item.Quantity
+                })));
+            CreateMap<Product, ProductDto>();
         }
     }
 }
