@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace App.BL.DTOs
+namespace App.BL
 {
     public class OrderDto
     {

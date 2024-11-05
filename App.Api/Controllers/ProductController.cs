@@ -1,9 +1,7 @@
-﻿using App.BL.Common;
-using App.BL.DTOs;
-using App.BL.IRepository;
-using App.BL.Models;
+﻿using App.BL;
+using App.BL.IServices;
+using App.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace App.Api.Controllers
 {
@@ -11,17 +9,17 @@ namespace App.Api.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly IProductRepository _productRepository;
+        private readonly IProductService _productService;
 
-        public ProductController(IProductRepository productRepository)
+        public ProductController(IProductService productService)
         {
-            _productRepository = productRepository;
+            _productService = productService;
         }
 
         [HttpGet]
         public async Task<ActionResult<ApiResponse<PaginationResult<ProductDto>>>> GetAll([FromQuery] PaginationFilter paginationFilter)
         {
-            var response = await _productRepository.GetAll(paginationFilter);
+            var response = await _productService.GetAll(paginationFilter);
 
             if (response.Success)
             {

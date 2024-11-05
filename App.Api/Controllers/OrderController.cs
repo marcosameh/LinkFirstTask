@@ -1,7 +1,6 @@
-﻿using App.BL.Common;
-using App.BL.DTOs;
-using App.BL.IRepository;
-using App.DAL.Entities;
+﻿using App.BL;
+using App.Domain.Models;
+using App.Infrastructure.IServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App.Api.Controllers
@@ -10,19 +9,19 @@ namespace App.Api.Controllers
     [ApiController]
     public class OrderController : ControllerBase
     {
-        private readonly IOrderRepository _orderRepository;
+        private readonly IOrderService _orderService;
 
-        public OrderController(IOrderRepository orderRepository)
+        public OrderController(IOrderService orderService)
         {
-            _orderRepository = orderRepository;
+            _orderService = orderService;
         }
 
         [HttpPost]
-        public async Task<ActionResult<ApiResponse<Order>>> Create([FromBody] OrderDto orderDto)
+        public async Task<ActionResult<ApiResponse<OrderDto>>> Create([FromBody] OrderDto orderDto)
         {
 
 
-            var response =await _orderRepository.CreateOrderAsync(orderDto);
+            var response = await _orderService.CreateOrderAsync(orderDto);
 
             if (response.Success)
             {

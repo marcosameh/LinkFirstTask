@@ -1,5 +1,4 @@
-﻿using App.BL.DTOs;
-using App.DAL.Entities;
+﻿using App.Domain.Entities;
 using AutoMapper;
 
 namespace App.BL.Mapper

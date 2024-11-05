@@ -1,7 +1,8 @@
-using App.BL.IRepository;
+using App.BL.IServices;
 using App.BL.Mapper;
-using App.BL.Repository;
-using App.DAL.Context;
+using App.BL.Services;
+using App.DAL.Repository;
+using App.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +20,16 @@ builder.Services.AddControllers(options =>
     options.Filters.Add<CustomValidationFilter>();
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularClient",
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:4200")
+                   .AllowAnyHeader()
+                   .AllowAnyMethod();
+        });
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -28,6 +39,8 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
 
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
@@ -38,7 +51,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCors("AllowAngularClient");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

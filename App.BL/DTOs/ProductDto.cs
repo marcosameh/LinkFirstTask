@@ -1,4 +1,4 @@
-﻿namespace App.BL.DTOs
+﻿namespace App.BL
 {
     public class ProductDto
     {

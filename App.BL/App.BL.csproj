@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\App.DAL\App.DAL.csproj" />
+    <ProjectReference Include="..\App.Domain\App.Domain.csproj" />
   </ItemGroup>
 
 </Project>
