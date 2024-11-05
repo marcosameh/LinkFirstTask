@@ -4,7 +4,9 @@ using App.BL.IRepository;
 using App.DAL.Context;
 using App.DAL.Entities;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace App.DAL.Repositories
 {
@@ -12,54 +14,55 @@ namespace App.DAL.Repositories
     {
         private readonly ApplicationContext _context;
         private readonly IMapper _mapper;
-        List<string> Errors = new List<string>();
+        private readonly List<string> _errors = new List<string>();
+
         public OrderRepository(ApplicationContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
-        public ApiResponse<OrderDto> CreateOrder(OrderDto orderDto)
+        public async Task<ApiResponse<OrderDto>> CreateOrderAsync(OrderDto orderDto)
         {
             try
             {
                 var order = _mapper.Map<Order>(orderDto);
-                order.TotalPrice = CalculateTotalPrice(order.OrderItems);
-                if (Errors.Count > 0)
-                {             
-                    return new ApiResponse<OrderDto>(false, string.Join("\n", Errors), null);
+                order.TotalPrice = await CalculateTotalPriceAsync(order.OrderItems);
+
+                if (_errors.Count > 0)
+                {
+                    return new ApiResponse<OrderDto>(false, _errors, null);
                 }
-                _context.Orders.Add(order);
-                _context.SaveChanges();
+
+                await _context.Orders.AddAsync(order);
+                await _context.SaveChangesAsync();
+
                 var responseDto = _mapper.Map<OrderDto>(order);
-                return new ApiResponse<OrderDto>(true, "Order created successfully", responseDto);
+                return new ApiResponse<OrderDto>(true, new List<string>(), responseDto);
             }
-            
             catch (Exception ex)
             {
-                return new ApiResponse<OrderDto>(false, $"{ex.Message}", null);
+                return new ApiResponse<OrderDto>(false, new List<string> { ex.Message }, null);
             }
         }
 
-        private decimal CalculateTotalPrice(IEnumerable<OrderItem> orderItems)
+        private async Task<decimal> CalculateTotalPriceAsync(IEnumerable<OrderItem> orderItems)
         {
             decimal totalPrice = 0;
-           
 
             foreach (var item in orderItems)
             {
-                var product = _context.Products.Find(item.ProductId);
+                var product = await _context.Products.FindAsync(item.ProductId);
                 if (product != null)
                 {
                     totalPrice += product.Price * item.Quantity;
                 }
                 else
                 {
-                    Errors.Add($"Product Not Found {item.ProductId}");
+                    _errors.Add($"Product Not Found: {item.ProductId}");
                 }
             }
 
-           
             return totalPrice;
         }
     }

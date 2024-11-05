@@ -14,8 +14,4 @@
     <ProjectReference Include="..\App.BL\App.BL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Filters\" />
-  </ItemGroup>
-
 </Project>

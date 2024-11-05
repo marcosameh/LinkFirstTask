@@ -6,6 +6,6 @@ namespace App.BL.IRepository
 {
     public interface IOrderRepository
     {
-        public ApiResponse<OrderDto> CreateOrder(OrderDto orderDto);
+        public Task<ApiResponse<OrderDto>> CreateOrderAsync(OrderDto orderDto);
     }
 }

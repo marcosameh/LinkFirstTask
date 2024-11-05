@@ -12,7 +12,7 @@ public class CustomValidationFilter : ActionFilterAttribute
                                                   .Select(e => e.ErrorMessage)
                                                   .ToList();
 
-            context.Result = new BadRequestObjectResult(new ApiResponse<object>(false, string.Join("\n", errors), null));
+            context.Result = new BadRequestObjectResult(new ApiResponse<object>(false, errors, null));
         }
     }
 }

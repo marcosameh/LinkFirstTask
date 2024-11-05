@@ -13,10 +13,9 @@ namespace App.BL.Mapper
             {
                 ProductId = item.ProductId,
                 Quantity = item.Quantity
-            })));
+            }))).ReverseMap();
 
 
-            CreateMap<Order, OrderDto>();
         }
     }
 }

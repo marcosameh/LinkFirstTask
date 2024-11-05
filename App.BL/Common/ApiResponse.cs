@@ -1,18 +1,16 @@
 ﻿namespace App.BL.Common
 {
-
     public class ApiResponse<T>
     {
         public bool Success { get; set; }
-        public string Message { get; set; }
+        public List<string> Errors { get; set; } = new List<string>();
         public T Data { get; set; }
 
-        public ApiResponse(bool success, string message, T data)
+        public ApiResponse(bool success, List<string> errors, T data)
         {
             Success = success;
-            Message = message;
+            Errors = errors;
             Data = data;
         }
     }
-
 }
