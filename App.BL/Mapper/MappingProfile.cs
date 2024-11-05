@@ -15,7 +15,8 @@ namespace App.BL.Mapper
                 Quantity = item.Quantity
             })));
 
-            CreateMap<OrderItemDto, OrderItem>();
+
+            CreateMap<Order, OrderDto>();
         }
     }
 }

@@ -18,20 +18,15 @@ namespace App.Api.Controllers
         }
 
         [HttpPost]
-        public ActionResult<ApiResponse<Order>> Create([FromBody] OrderDto orderDto)
+        public ActionResult<ApiResponse<OrderDto>> Create([FromBody] OrderDto orderDto)
         {
-            if (!ModelState.IsValid)
-            {
-                var errors = ModelState.Values.SelectMany(v => v.Errors)
-                                               .Select(e => e.ErrorMessage);
-                return BadRequest(new ApiResponse<Order>(false, string.Join("\n", errors), null));
-            }
+           
 
             var response = _orderRepository.CreateOrder(orderDto);
 
             if (response.Success)
             {
-                return CreatedAtAction(nameof(Create), new { id = response.Data.Id }, response);
+                return Ok(response);
             }
 
             return BadRequest(response);

@@ -19,31 +19,32 @@ namespace App.DAL.Repositories
             _mapper = mapper;
         }
 
-        public ApiResponse<Order> CreateOrder(OrderDto orderDto)
+        public ApiResponse<OrderDto> CreateOrder(OrderDto orderDto)
         {
             try
             {
                 var order = _mapper.Map<Order>(orderDto);
                 order.TotalPrice = CalculateTotalPrice(order.OrderItems);
                 if (Errors.Count > 0)
-                {
-                    return new ApiResponse<Order>(false, string.Join("\n", Errors), null);
+                {             
+                    return new ApiResponse<OrderDto>(false, string.Join("\n", Errors), null);
                 }
                 _context.Orders.Add(order);
                 _context.SaveChanges();
-
-                return new ApiResponse<Order>(true, "Order created successfully", order);
+                var responseDto = _mapper.Map<OrderDto>(order);
+                return new ApiResponse<OrderDto>(true, "Order created successfully", responseDto);
             }
-
+            
             catch (Exception ex)
             {
-                return new ApiResponse<Order>(false, $"{ex.Message}", null);
+                return new ApiResponse<OrderDto>(false, $"{ex.Message}", null);
             }
         }
 
         private decimal CalculateTotalPrice(IEnumerable<OrderItem> orderItems)
         {
             decimal totalPrice = 0;
+           
 
             foreach (var item in orderItems)
             {
@@ -58,6 +59,7 @@ namespace App.DAL.Repositories
                 }
             }
 
+           
             return totalPrice;
         }
     }

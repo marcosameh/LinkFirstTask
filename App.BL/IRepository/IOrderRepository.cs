@@ -6,6 +6,6 @@ namespace App.BL.IRepository
 {
     public interface IOrderRepository
     {
-        public ApiResponse<Order> CreateOrder(OrderDto orderDto);
+        public ApiResponse<OrderDto> CreateOrder(OrderDto orderDto);
     }
 }
