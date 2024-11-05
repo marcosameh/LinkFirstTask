@@ -6,7 +6,7 @@ using App.DAL.Entities;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
-namespace App.DAL.Repositories
+namespace App.BL.Repository
 {
     public class OrderRepository : IOrderRepository
     {

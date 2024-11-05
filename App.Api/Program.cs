@@ -1,7 +1,7 @@
 using App.BL.IRepository;
 using App.BL.Mapper;
+using App.BL.Repository;
 using App.DAL.Context;
-using App.DAL.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,6 +27,7 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
