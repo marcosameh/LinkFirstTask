@@ -16,7 +16,7 @@ namespace App.BL
         public string CustomerPhone { get; set; }
 
         [Required(ErrorMessage = "Customer address is required.")]
-        [StringLength(200, ErrorMessage = "Customer address can't exceed 200 characters.")]
+        [StringLength(250, ErrorMessage = "Customer address can't exceed 250 characters.")]
         public string CustomerAddress { get; set; }
     }
 

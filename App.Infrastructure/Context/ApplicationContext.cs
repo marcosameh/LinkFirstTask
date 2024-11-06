@@ -22,13 +22,46 @@ public class ApplicationContext : DbContext
             new OrderStatus { Id = 4, Name = "Delivered" }
         );
 
+        // Configure Order
         modelBuilder.Entity<Order>()
-    .Property(o => o.TotalPrice)
-    .HasColumnType("decimal(7,2)");
+            .Property(o => o.TotalPrice)
+            .IsRequired()
+            .HasColumnType("decimal(8,2)");
 
+        modelBuilder.Entity<Order>()
+            .Property(o => o.CustomerName)
+            .IsRequired()
+            .HasMaxLength(100);
+
+        modelBuilder.Entity<Order>()
+            .Property(o => o.CustomerPhone)
+            .IsRequired() 
+            .HasMaxLength(11);
+
+        modelBuilder.Entity<Order>()
+            .Property(o => o.CustomerAddress)
+            .IsRequired()
+            .HasMaxLength(250);
+
+        // Configure Product
         modelBuilder.Entity<Product>()
             .Property(p => p.Price)
-            .HasColumnType("decimal(7,2)");
+            .IsRequired()
+            .HasColumnType("decimal(8,2)"); 
 
+        modelBuilder.Entity<Product>()
+            .Property(p => p.Name)
+            .IsRequired()  
+            .HasMaxLength(100);
+
+        modelBuilder.Entity<Product>()
+            .Property(p => p.Photo)
+            .HasMaxLength(100);
+
+        // Configure OrderStatus
+        modelBuilder.Entity<OrderStatus>()
+            .Property(s => s.Name)
+            .IsRequired()  
+            .HasMaxLength(50);
     }
 }
