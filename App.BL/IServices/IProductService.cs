@@ -1,5 +1,5 @@
-﻿using App.Domain.Entities;
-using App.Domain.Models;
+﻿using App.BL.Models;
+using App.DAL.Models;
 
 namespace App.BL.IServices
 {

@@ -1,4 +1,4 @@
-﻿namespace App.Domain.Models
+﻿namespace App.BL.Models
 {
     public class PaginationResult<T>
     {

@@ -2,8 +2,8 @@ using App.BL.IServices;
 using App.BL.Mapper;
 using App.BL.Services;
 using App.DAL.Repository;
-using App.Infrastructure;
-using App.Infrastructure.IServices;
+using App.DAL;
+using App.DAL.IServices;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

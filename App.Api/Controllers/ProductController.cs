@@ -1,6 +1,7 @@
 ﻿using App.BL;
 using App.BL.IServices;
-using App.Domain.Models;
+using App.BL.Models;
+using App.DAL.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App.Api.Controllers

@@ -1,4 +1,4 @@
-﻿using App.Domain.Models;
+﻿using App.BL.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 

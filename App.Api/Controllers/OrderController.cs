@@ -1,6 +1,6 @@
 ﻿using App.BL;
-using App.Domain.Models;
-using App.Infrastructure.IServices;
+using App.BL.Models;
+using App.DAL.IServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App.Api.Controllers
@@ -17,7 +17,7 @@ namespace App.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ApiResponse<OrderDto>>> Create([FromBody] OrderDto orderDto)
+        public async Task<ActionResult<ApiResponse<CreateOrderDto>>> Create([FromBody] CreateOrderDto orderDto)
         {
 
 

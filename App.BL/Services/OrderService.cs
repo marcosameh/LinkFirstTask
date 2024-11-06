@@ -1,8 +1,9 @@
-﻿using App.Domain.Entities;
+﻿using App.BL.DTOs;
+using App.BL.Models;
+using App.DAL;
+using App.DAL.IServices;
+using App.Domain.Entities;
 using App.Domain.Enum;
-using App.Domain.Models;
-using App.Infrastructure;
-using App.Infrastructure.IServices;
 using AutoMapper;
 
 namespace App.BL.Services
@@ -21,27 +22,27 @@ namespace App.BL.Services
             this.productRepository = productRepository;
             this.mapper = mapper;
         }
-        public async Task<ApiResponse<OrderDto>> CreateOrderAsync(OrderDto orderDto)
+        public async Task<ApiResponse<int>> CreateOrderAsync(CreateOrderDto orderDto)
         {
             try
             {
                 var order = mapper.Map<Order>(orderDto);
-                order.TotalPrice = await CalculateTotalPriceAsync(order.OrderItems);
+                //order.TotalPrice = await CalculateTotalPriceAsync(order.OrderItems);
                 if (_errors.Any())
                 {
-                    return new ApiResponse<OrderDto>(false, _errors, null);
+                    return new ApiResponse<int>(false, _errors, default(int));
                 }
                 order.OrderDate = DateTime.Now;
-                order.StatusId = (int)OrderStatusEnum.Submitted;
-                await orderRepository.CreateOrderAsync(order);
-                return new ApiResponse<OrderDto>(true, new List<string>(), orderDto);
+                order.StatusId = (int)OrderStatusEnum.Pending;
+                var orderId = await orderRepository.CreateOrderAsync(order);
+                return new ApiResponse<int>(true, new List<string>(), orderId);
             }
             catch (Exception ex)
             {
-                return new ApiResponse<OrderDto>(false, new List<string> { ex.Message }, null);
+                return new ApiResponse<int>(false, new List<string> { ex.Message }, default(int));
             }
-
         }
+
         public async Task<decimal> CalculateTotalPriceAsync(IEnumerable<OrderItem> orderItems)
         {
             decimal totalPrice = 0;
@@ -62,6 +63,53 @@ namespace App.BL.Services
             return totalPrice;
         }
 
-        
+        public async Task<ApiResponse<OrderDto>> GetOrder(int orderId)
+        {
+            try
+            {
+                var order= await orderRepository.GetOrder(orderId);
+                if (order == null)
+                {
+                    return new ApiResponse<OrderDto>(false, new List<string> { "order not found" }, null);
+                }
+                var orderDto=mapper.Map<OrderDto>(order);
+                return new ApiResponse<OrderDto>(true, new List<string>() , orderDto);
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse<OrderDto> (false, new List<string>() { ex.Message },null );
+            }
+        }
+
+        public async Task<ApiResponse<OrderDto>> SubmitOrderAsync(SubmitOrderDto submitOrderDto)
+        {
+            try
+            {
+                var order = await orderRepository.GetOrder(submitOrderDto.OrderId);
+                if (order == null)
+                {
+                    return new ApiResponse<OrderDto>(false, new List<string> { "Order Not Found" }, null);
+                }
+                if (order.StatusId == (int)OrderStatusEnum.Submitted)
+                {
+                    return new ApiResponse<OrderDto>(false, new List<string> { "order Already Submitted" }, null);
+                }
+                order.TotalPrice = await CalculateTotalPriceAsync(order.OrderItems);
+                order.CustomerAddress = submitOrderDto.CustomerAddress;
+                order.CustomerName = submitOrderDto.CustomerName;
+                order.CustomerPhone = submitOrderDto.CustomerPhone;
+                foreach (var orderItem in order.OrderItems)
+                {
+                    orderItem.UnitPrice = orderItem.Product.Price;
+                }
+                await orderRepository.SaveChangesAsync();
+                var orderDto = mapper.Map<OrderDto>(order);
+                return new ApiResponse<OrderDto>(true, new List<string>(), orderDto);
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse<OrderDto>(false, new List<string>() { ex.Message }, null);
+            }
+        }
     }
 }

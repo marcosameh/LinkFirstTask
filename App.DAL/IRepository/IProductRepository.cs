@@ -1,7 +1,7 @@
-﻿using App.Domain.Entities;
-using App.Domain.Models;
+﻿using App.DAL.Models;
+using App.Domain.Entities;
 
-namespace App.Infrastructure
+namespace App.DAL
 {
     public interface IProductRepository
     {

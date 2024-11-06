@@ -1,4 +1,4 @@
-﻿namespace App.Domain.Models
+﻿namespace App.DAL.Models
 {
     public class PaginationFilter
     {

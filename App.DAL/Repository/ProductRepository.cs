@@ -1,6 +1,5 @@
-﻿using App.Domain.Entities;
-using App.Domain.Models;
-using App.Infrastructure;
+﻿using App.DAL.Models;
+using App.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Dynamic.Core;
 

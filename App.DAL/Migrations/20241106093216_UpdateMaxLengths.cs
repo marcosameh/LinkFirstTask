@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace App.Infrastructure.Migrations
+namespace App.DAL.Migrations
 {
     /// <inheritdoc />
     public partial class UpdateMaxLengths : Migration

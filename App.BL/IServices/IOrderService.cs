@@ -1,12 +1,15 @@
 ﻿using App.BL;
+using App.BL.DTOs;
+using App.BL.Models;
 using App.Domain.Entities;
-using App.Domain.Models;
 
-namespace App.Infrastructure.IServices
+namespace App.DAL.IServices
 {
     public interface IOrderService
     {
-        public Task<ApiResponse<OrderDto>> CreateOrderAsync(OrderDto orderDto);
+        public Task<ApiResponse<int>> CreateOrderAsync(CreateOrderDto orderDto);
+        public Task<ApiResponse<OrderDto>> SubmitOrderAsync(SubmitOrderDto orderDto);
+        public Task<ApiResponse<OrderDto>> GetOrder(int orderId);
         public Task<decimal> CalculateTotalPriceAsync(IEnumerable<OrderItem> orderItems);
     }
 }

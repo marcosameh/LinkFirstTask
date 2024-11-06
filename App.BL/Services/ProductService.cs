@@ -1,7 +1,7 @@
 ﻿using App.BL.IServices;
-using App.Domain.Entities;
-using App.Domain.Models;
-using App.Infrastructure;
+using App.BL.Models;
+using App.DAL;
+using App.DAL.Models;
 using AutoMapper;
 
 namespace App.BL.Services
@@ -41,7 +41,7 @@ namespace App.BL.Services
             }
             catch (Exception ex)
             {
-                return new ApiResponse<PaginationResult<ProductDto>>(false, new List<string> { ex.Message}, null);
+                return new ApiResponse<PaginationResult<ProductDto>>(false, new List<string> { ex.Message }, null);
             }
         }
     }
