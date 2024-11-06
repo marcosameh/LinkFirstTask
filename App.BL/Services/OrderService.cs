@@ -72,7 +72,8 @@ namespace App.BL.Services
                 {
                     return new ApiResponse<OrderDto>(false, new List<string> { "order not found" }, null);
                 }
-                var orderDto=mapper.Map<OrderDto>(order);
+                var orderDto = mapper.Map<OrderDto>(order);
+                orderDto.TotalPrice = await CalculateTotalPriceAsync(order.OrderItems);
                 return new ApiResponse<OrderDto>(true, new List<string>() , orderDto);
             }
             catch (Exception ex)

@@ -20,7 +20,8 @@ namespace App.BL.Mapper
                     ProductId = item.ProductId,
                     Quantity = item.Quantity,
                     Name=item.Product.Name,
-                })));
+                })))
+                .ForMember(dest=>dest.OrderId,opt=>opt.MapFrom(src=>src.Id));
             CreateMap<SubmitOrderDto, Order>();
             CreateMap<Product, ProductDto>();
         }
