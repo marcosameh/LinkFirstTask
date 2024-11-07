@@ -1,4 +1,5 @@
 ﻿using App.Domain.Entities;
+using App.Domain.Enum;
 using Microsoft.EntityFrameworkCore;
 namespace App.DAL
 {
@@ -17,11 +18,11 @@ namespace App.DAL
         {
             // Seed data for OrderStatus
             modelBuilder.Entity<OrderStatus>().HasData(
-                new OrderStatus { Id = 1, Name = "Pending" },
-                new OrderStatus { Id = 2, Name = "Submitted" },
-                new OrderStatus { Id = 3, Name = "Shipped" },
-                new OrderStatus { Id = 4, Name = "Delivered" }
-            );
+       new OrderStatus { Id = (int)OrderStatusEnum.Pending, Name = OrderStatusEnum.Pending.ToString() },
+       new OrderStatus { Id = (int)OrderStatusEnum.Submitted, Name = OrderStatusEnum.Submitted.ToString() },
+       new OrderStatus { Id = (int)OrderStatusEnum.Shipped, Name = OrderStatusEnum.Shipped.ToString() },
+       new OrderStatus { Id = (int)OrderStatusEnum.Delivered, Name = OrderStatusEnum.Delivered.ToString() }
+   );
 
             // Configure Order
             modelBuilder.Entity<Order>()
