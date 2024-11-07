@@ -104,6 +104,7 @@ namespace App.BL.Services
                     return new ApiResponse<OrderDto>(false, new List<string> { "order Already Submitted" }, null);
                 }
                 order.TotalPrice = await CalculateTotalPriceAsync(order.OrderItems);
+                order.StatusId = (int)OrderStatusEnum.Submitted;
                 order.CustomerAddress = submitOrderDto.CustomerAddress;
                 order.CustomerName = submitOrderDto.CustomerName;
                 order.CustomerPhone = submitOrderDto.CustomerPhone;

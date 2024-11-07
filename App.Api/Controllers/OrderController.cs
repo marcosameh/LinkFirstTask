@@ -47,12 +47,9 @@ namespace App.Api.Controllers
         public async Task<ActionResult<ApiResponse<OrderDto>>> SubmitOrder([FromBody] SubmitOrderDto orderDto)
         {
             var response = await _orderService.SubmitOrderAsync(orderDto);
-            if (response.Success)
-            {
-                return Ok(response);
-            }
-
-            return BadRequest(response);
+           
+            return Ok(response);
+                       
         }
     }
 }
