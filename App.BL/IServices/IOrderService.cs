@@ -10,6 +10,6 @@ namespace App.DAL.IServices
         public Task<ApiResponse<int>> CreateOrderAsync(CreateOrderDto orderDto);
         public Task<ApiResponse<OrderDto>> SubmitOrderAsync(SubmitOrderDto orderDto);
         public Task<ApiResponse<OrderDto>> GetOrder(int orderId);
-        public Task<decimal> CalculateTotalPriceAsync(IEnumerable<OrderItem> orderItems);
+      
     }
 }

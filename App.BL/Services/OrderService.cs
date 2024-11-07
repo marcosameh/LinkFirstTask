@@ -57,15 +57,7 @@ namespace App.BL.Services
 
             foreach (var item in orderItems)
             {
-                var product = await productRepository.Get(item.ProductId);
-                if (product != null)
-                {
-                    totalPrice += product.Price * item.Quantity;
-                }
-                else
-                {
-                    _errors.Add($"Product ID: {item.ProductId} Not Found");
-                }
+                totalPrice += item.UnitPrice.Value * item.Quantity;
             }
 
             return totalPrice;
@@ -80,8 +72,13 @@ namespace App.BL.Services
                 {
                     return new ApiResponse<OrderDto>(false, new List<string> { "order not found" }, null);
                 }
+                foreach (var orderItem in order.OrderItems)
+                {
+                    orderItem.UnitPrice = orderItem.Product.Price;
+                }
+                order.TotalPrice = await CalculateTotalPriceAsync(order.OrderItems);
+                await orderRepository.SaveChangesAsync();
                 var orderDto = mapper.Map<OrderDto>(order);
-                orderDto.TotalPrice = await CalculateTotalPriceAsync(order.OrderItems);
                 return new ApiResponse<OrderDto>(true, new List<string>() , orderDto);
             }
             catch (Exception ex)
@@ -102,16 +99,11 @@ namespace App.BL.Services
                 if (order.StatusId == (int)OrderStatusEnum.Submitted)
                 {
                     return new ApiResponse<OrderDto>(false, new List<string> { "order Already Submitted" }, null);
-                }
-                order.TotalPrice = await CalculateTotalPriceAsync(order.OrderItems);
+                }               
                 order.StatusId = (int)OrderStatusEnum.Submitted;
                 order.CustomerAddress = submitOrderDto.CustomerAddress;
                 order.CustomerName = submitOrderDto.CustomerName;
-                order.CustomerPhone = submitOrderDto.CustomerPhone;
-                foreach (var orderItem in order.OrderItems)
-                {
-                    orderItem.UnitPrice = orderItem.Product.Price;
-                }
+                order.CustomerPhone = submitOrderDto.CustomerPhone;               
                 await orderRepository.SaveChangesAsync();
                 var orderDto = mapper.Map<OrderDto>(order);
                 return new ApiResponse<OrderDto>(true, new List<string>(), orderDto);
