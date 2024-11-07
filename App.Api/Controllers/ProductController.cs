@@ -20,14 +20,9 @@ namespace App.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<ApiResponse<PaginationResult<ProductDto>>>> GetAll([FromQuery] PaginationFilter paginationFilter)
         {
-            var response = await _productService.GetAll(paginationFilter);
-
-            if (response.Success)
-            {
-                return Ok(response);
-            }
-
-            return BadRequest(response);
+            var response = await _productService.GetAll(paginationFilter);           
+            return Ok(response);
+           
         }
     }
 }

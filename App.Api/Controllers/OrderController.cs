@@ -20,36 +20,26 @@ namespace App.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<ApiResponse<int>>> Create([FromBody] CreateOrderDto orderDto)
         {
-
-
             var response = await _orderService.CreateOrderAsync(orderDto);
 
-            if (response.Success)
-            {
-                return Ok(response);
-            }
+            return Ok(response);
 
-            return BadRequest(response);
         }
         [HttpGet("{orderId}")]
         public async Task<ActionResult<ApiResponse<OrderDto>>> GetOrder(int orderId)
         {
             var response = await _orderService.GetOrder(orderId);
-            if (response.Success)
-            {
-                return Ok(response);
-            }
+            return Ok(response);
 
-            return NotFound(response);
         }
 
         [HttpPost("submit")]
         public async Task<ActionResult<ApiResponse<OrderDto>>> SubmitOrder([FromBody] SubmitOrderDto orderDto)
         {
             var response = await _orderService.SubmitOrderAsync(orderDto);
-           
+
             return Ok(response);
-                       
+
         }
     }
 }
