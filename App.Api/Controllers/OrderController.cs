@@ -18,7 +18,7 @@ namespace App.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ApiResponse<CreateOrderDto>>> Create([FromBody] CreateOrderDto orderDto)
+        public async Task<ActionResult<ApiResponse<int>>> Create([FromBody] CreateOrderDto orderDto)
         {
 
 

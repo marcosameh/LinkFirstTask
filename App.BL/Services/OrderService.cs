@@ -26,8 +26,16 @@ namespace App.BL.Services
         {
             try
             {
-                var order = mapper.Map<Order>(orderDto);
-                //order.TotalPrice = await CalculateTotalPriceAsync(order.OrderItems);
+                var order = mapper.Map<Order>(orderDto);                
+                foreach (var item in order.OrderItems)
+                {
+                    var product = await productRepository.Get(item.ProductId);
+                    if (product == null)
+                    {
+                        _errors.Add($"Product ID: {item.ProductId} Not Found");
+                    }
+                   
+                }
                 if (_errors.Any())
                 {
                     return new ApiResponse<int>(false, _errors, default(int));
